@@ -1,0 +1,109 @@
+---
+import Layout from '#/layouts/Layout.astro'
+
+const response = await fetch(Astro.url + '/memes.json')
+const memes = (await response.json()) as string[]
+---
+
+<Layout title="Llamemes">
+  <main>
+    <div
+      class="grid"
+      data-masonry='{ "itemSelector": ".grid-item", "isFitWidth": true, "initLayout": true, "transitionDuration": "0.1s", "stagger": 0 }'
+    >
+      {
+        memes.map(meme => (
+          <div class="grid-item">
+            <a
+              href={meme}
+              data-fancybox="gallery"
+              data-src={meme}
+              href={meme}
+              data-media="(max-width: 799px);(min-width: 800px)"
+            >
+              <img height="100%" src={meme} />
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { Fancybox } from '@fancyapps/ui'
+
+  Fancybox.bind('[data-fancybox="gallery"]', {
+    compact: false,
+    contentClick: 'iterateZoom',
+    Images: {
+      initialSize: 'fit',
+      Panzoom: {
+        maxScale: 2
+      }
+    },
+    Toolbar: {
+      display: {
+        left: ['infobar'],
+        middle: [],
+        right: ['iterateZoom', 'close']
+      }
+    },
+    Slideshow: {
+      progressParentEl: (slideshow: any) => {
+        return slideshow.instance.container
+      }
+    }
+  })
+</script>
+
+<style>
+  body {
+    margin: 0 auto;
+  }
+  main {
+    margin: 0 auto;
+    padding: 1rem;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  a {
+    padding: 12px;
+  }
+
+  .grid {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .grid-item {
+    padding: 6px;
+    float: left;
+    border-radius: 8px;
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    max-width: 250px;
+    padding: 0.5rem;
+  }
+
+  @media (max-width: 500px) {
+    img {
+      max-width: 100%;
+    }
+  }
+</style>

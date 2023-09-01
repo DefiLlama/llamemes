@@ -1,0 +1,22 @@
+{
+  "name": "llamemes",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fancyapps/ui": "^5.0.22",
+    "astro": "^3.0.5",
+    "masonry-layout": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/masonry-layout": "^4.2.5",
+    "typescript": "^5.2.2",
+    "@astrojs/vercel": "^4.0.1"
+  }
+}
